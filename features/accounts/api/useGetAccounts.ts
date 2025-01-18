@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import type { GetAccounts } from "@/app/api/(app)/accounts/route"
+import type { GetAccountsOutput } from "@/app/api/(app)/accounts/route"
 
 export const useGetAccounts = () => {
   const query = useQuery({
@@ -10,7 +10,7 @@ export const useGetAccounts = () => {
         throw new Error("Failed to fetch accounts")
       }
 
-      const { data }: { data: GetAccounts } = await response.json()
+      const { data }: { data: GetAccountsOutput } = await response.json()
       return data
     },
   })

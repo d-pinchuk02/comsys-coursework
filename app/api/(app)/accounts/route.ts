@@ -20,7 +20,8 @@ export const GET = async () => {
   })
 }
 
-export type GetAccounts = {
+export type GetAccountsInput = {}
+export type GetAccountsOutput = {
   id: string
   name: string
 }[]
@@ -43,6 +44,11 @@ export const POST = async (req: Request) => {
   })
 }
 
-export type PostAccount = {
+export type PostAccountInput = {
   name: string
+}
+export type PostAccountOutput = {
+  id: number
+  name: string
+  userId: string
 }
