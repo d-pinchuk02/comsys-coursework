@@ -31,7 +31,7 @@ export const POST = async (req: Request) => {
   const body = await req.json()
   const values = insertAccountSchema.pick({ name: true }).parse(body)
 
-  const data = await db
+  const [data] = await db
     .insert(accounts)
     .values({
       userId: user.sub,

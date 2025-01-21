@@ -6,6 +6,7 @@ import { ArrowUpDown } from "lucide-react"
 import type { GetAccountsOutput } from "@/app/api/(app)/accounts/route"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Actions } from "@/app/(dashboard)/accounts/actions"
 
 export type ResponseData = GetAccountsOutput[0]
 
@@ -45,5 +46,9 @@ export const columns: ColumnDef<ResponseData>[] = [
         </Button>
       )
     },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <Actions id={row.original.id} />,
   },
 ]

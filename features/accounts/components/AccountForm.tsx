@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { Trash } from "lucide-react"
+import { Loader2, Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -71,6 +71,9 @@ export const AccountForm = ({
           )}
         />
         <Button className="w-full" disabled={disabled}>
+          {disabled && (
+            <Loader2 className="size-4 mr-2 animate-spin" aria-hidden="true" />
+          )}
           {id ? "Зберегти зміни" : "Створити рахунок"}
         </Button>
         {!!id && (

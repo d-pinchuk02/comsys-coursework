@@ -48,11 +48,11 @@ const AccountsPage = () => {
         </CardHeader>
         <CardContent>
           <DataTable
-            filterKey="email"
+            filterKey="name"
             columns={columns}
             data={accounts}
             onDelete={(row) => {
-              const ids = row.map((r) => r.original.id)
+              const ids = row.map((r) => Number(r.original.id))
               deleteAccounts.mutate({ ids })
             }}
             disabled={isDisabled}
