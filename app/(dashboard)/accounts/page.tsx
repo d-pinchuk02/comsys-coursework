@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { DataTable } from "@/components/DataTable"
 import { useNewAccount } from "@/features/accounts/hooks/useNewAccount"
 import { useGetAccounts } from "@/features/accounts/api/useGetAccounts"
-import { useBulkDeleteAccounts } from "@/features/accounts/api/useBulkDelete"
+import { useBulkDeleteAccounts } from "@/features/accounts/api/useBulkDeleteAccounts"
 
 const AccountsPage = () => {
   const newAccount = useNewAccount()
