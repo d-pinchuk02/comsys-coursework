@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { createInsertSchema } from "drizzle-zod"
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
+import { relations } from "drizzle-orm"
+import { pgTable, serial, text, timestamp, integer } from "drizzle-orm/pg-core"
 
 export const timestamps = {
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
@@ -16,6 +17,10 @@ export const accounts = pgTable("accounts", {
   ...timestamps,
 })
 
+export const accountsRelations = relations(accounts, ({ many }) => ({
+  transactions: many(transactions),
+}))
+
 export const insertAccountSchema = createInsertSchema(accounts, {
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
@@ -28,7 +33,42 @@ export const categories = pgTable("categories", {
   ...timestamps,
 })
 
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  transactions: many(transactions),
+}))
+
 export const insertCategorySchema = createInsertSchema(categories, {
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+})
+
+export const transactions = pgTable("transactions", {
+  id: serial("id").primaryKey(),
+  amount: integer("amount").notNull(),
+  notes: text("notes"),
+  accountId: integer("account_id")
+    .references(() => accounts.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+  categoryId: integer("category_id").references(() => categories.id, {
+    onDelete: "set null",
+  }),
+  ...timestamps,
+})
+
+export const transactionsRelations = relations(transactions, ({ one }) => ({
+  account: one(accounts, {
+    fields: [transactions.accountId],
+    references: [accounts.id],
+  }),
+  category: one(categories, {
+    fields: [transactions.categoryId],
+    references: [categories.id],
+  }),
+}))
+
+export const insertTransactionSchema = createInsertSchema(transactions, {
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
