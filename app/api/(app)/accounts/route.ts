@@ -11,6 +11,8 @@ export const GET = async () => {
     .select({
       id: accounts.id,
       name: accounts.name,
+      createdAt: accounts.created_at,
+      updatedAt: accounts.updated_at,
     })
     .from(accounts)
     .where(eq(accounts.userId, user.sub))
@@ -24,6 +26,8 @@ export type GetAccountsInput = {}
 export type GetAccountsOutput = {
   id: string
   name: string
+  createdAt: string
+  updatedAt: string
 }[]
 
 export const POST = async (req: Request) => {
@@ -51,4 +55,6 @@ export type PostAccountOutput = {
   id: number
   name: string
   userId: string
+  createdAt: string
+  updatedAt: string
 }

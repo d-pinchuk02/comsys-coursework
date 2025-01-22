@@ -15,6 +15,8 @@ export const GET = async (
     .select({
       id: categories.id,
       name: categories.name,
+      createdAt: categories.created_at,
+      updatedAt: categories.updated_at,
     })
     .from(categories)
     .where(and(eq(categories.id, id), eq(categories.userId, user.sub)))
@@ -40,6 +42,8 @@ export type GetCategoryInput = {}
 export type GetCategoryOutput = {
   id: string
   name: string
+  createdAt: string
+  updatedAt: string
 }
 
 export const PATCH = async (
@@ -77,6 +81,8 @@ export type EditCategoryInput = {}
 export type EditCategoryOutput = {
   id: string
   name: string
+  createdAt: string
+  updatedAt: string
 }
 
 export const DELETE = async (

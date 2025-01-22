@@ -15,6 +15,8 @@ export const GET = async (
     .select({
       id: accounts.id,
       name: accounts.name,
+      createdAt: accounts.created_at,
+      updatedAt: accounts.updated_at,
     })
     .from(accounts)
     .where(and(eq(accounts.id, id), eq(accounts.userId, user.sub)))
@@ -40,6 +42,8 @@ export type GetAccountInput = {}
 export type GetAccountOutput = {
   id: string
   name: string
+  createdAt: string
+  updatedAt: string
 }
 
 export const PATCH = async (
@@ -77,6 +81,8 @@ export type EditAccountInput = {}
 export type EditAccountOutput = {
   id: string
   name: string
+  createdAt: string
+  updatedAt: string
 }
 
 export const DELETE = async (

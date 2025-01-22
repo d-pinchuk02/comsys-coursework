@@ -11,6 +11,8 @@ export const GET = async () => {
     .select({
       id: categories.id,
       name: categories.name,
+      createdAt: categories.created_at,
+      updatedAt: categories.updated_at,
     })
     .from(categories)
     .where(eq(categories.userId, user.sub))
@@ -24,6 +26,8 @@ export type GetCategoriesInput = {}
 export type GetCategoriesOutput = {
   id: string
   name: string
+  createdAt: string
+  updatedAt: string
 }[]
 
 export const POST = async (req: Request) => {
@@ -51,4 +55,6 @@ export type PostCategoryOutput = {
   id: number
   name: string
   userId: string
+  createdAt: string
+  updatedAt: string
 }
