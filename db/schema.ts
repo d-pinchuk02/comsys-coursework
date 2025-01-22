@@ -1,3 +1,4 @@
+import { z } from "zod"
 import { createInsertSchema } from "drizzle-zod"
 import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
 
@@ -15,7 +16,10 @@ export const accounts = pgTable("accounts", {
   ...timestamps,
 })
 
-export const insertAccountSchema = createInsertSchema(accounts)
+export const insertAccountSchema = createInsertSchema(accounts, {
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+})
 
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
@@ -24,4 +28,7 @@ export const categories = pgTable("categories", {
   ...timestamps,
 })
 
-export const insertCategorySchema = createInsertSchema(categories)
+export const insertCategorySchema = createInsertSchema(categories, {
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+})

@@ -26,8 +26,8 @@ export type GetCategoriesInput = {}
 export type GetCategoriesOutput = {
   id: string
   name: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }[]
 
 export const POST = async (req: Request) => {
@@ -55,6 +55,6 @@ export type PostCategoryOutput = {
   id: number
   name: string
   userId: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }

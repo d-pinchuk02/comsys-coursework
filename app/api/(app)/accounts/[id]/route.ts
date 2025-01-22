@@ -42,8 +42,8 @@ export type GetAccountInput = {}
 export type GetAccountOutput = {
   id: string
   name: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export const PATCH = async (
@@ -81,8 +81,8 @@ export type EditAccountInput = {}
 export type EditAccountOutput = {
   id: string
   name: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export const DELETE = async (

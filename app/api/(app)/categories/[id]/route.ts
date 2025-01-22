@@ -42,8 +42,8 @@ export type GetCategoryInput = {}
 export type GetCategoryOutput = {
   id: string
   name: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export const PATCH = async (
@@ -81,8 +81,8 @@ export type EditCategoryInput = {}
 export type EditCategoryOutput = {
   id: string
   name: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export const DELETE = async (
