@@ -15,8 +15,8 @@ export const GET = async (
     .select({
       id: accounts.id,
       name: accounts.name,
-      createdAt: accounts.created_at,
-      updatedAt: accounts.updated_at,
+      createdAt: accounts.createdAt,
+      updatedAt: accounts.updatedAt,
     })
     .from(accounts)
     .where(and(eq(accounts.id, id), eq(accounts.userId, user.sub)))

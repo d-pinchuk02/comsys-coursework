@@ -11,8 +11,8 @@ export const GET = async () => {
     .select({
       id: categories.id,
       name: categories.name,
-      createdAt: categories.created_at,
-      updatedAt: categories.updated_at,
+      createdAt: categories.createdAt,
+      updatedAt: categories.updatedAt,
     })
     .from(categories)
     .where(eq(categories.userId, user.sub))
