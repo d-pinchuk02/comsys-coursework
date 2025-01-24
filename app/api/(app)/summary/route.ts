@@ -162,7 +162,7 @@ export const GET = async (
   })
 }
 
-export type SummaryOutput = {
+export type GetSummaryOutput = {
   remainingAmount: number
   remainingChange: number
   incomeAmount: number
