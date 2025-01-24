@@ -19,6 +19,7 @@ export const GET = async (
       notes: transactions.notes,
       accountId: transactions.accountId,
       createdAt: transactions.createdAt,
+      updatedAt: transactions.updatedAt,
     })
     .from(transactions)
     .innerJoin(accounts, eq(transactions.accountId, accounts.id))
@@ -44,11 +45,12 @@ export const GET = async (
 export type GetTransactionInput = {}
 export type GetTransactionOutput = {
   id: number
-  categoryId: number | null
+  categoryId?: number | null
   amount: number
-  notes: string | null
+  notes?: string | null
   accountId: number
   createdAt: Date
+  updatedAt?: Date | null
 }
 
 export const PATCH = async (
@@ -98,11 +100,12 @@ export const PATCH = async (
 export type EditTransactionInput = {}
 export type EditTransactionOutput = {
   id: number
-  categoryId: number | null
+  categoryId?: number | null
   amount: number
-  notes: string | null
+  notes?: string | null
   accountId: number
   createdAt: Date
+  updatedAt?: Date | null
 }
 
 export const DELETE = async (

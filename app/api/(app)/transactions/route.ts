@@ -41,6 +41,7 @@ export const GET = async (
       account: accounts.name,
       accountId: transactions.accountId,
       createdAt: transactions.createdAt,
+      updatedAt: transactions.updatedAt,
     })
     .from(transactions)
     .innerJoin(accounts, eq(transactions.accountId, accounts.id))
@@ -63,13 +64,14 @@ export const GET = async (
 export type GetTransactionsInput = {}
 export type GetTransactionsOutput = {
   id: number
-  category: string | null
-  categoryId: number | null
+  category?: string | null
+  categoryId?: number | null
   amount: number
-  notes: string | null
+  notes?: string | null
   account: string
   accountId: number
   createdAt: Date
+  updatedAt?: Date | null
 }[]
 
 export const POST = async (req: Request) => {
@@ -92,19 +94,20 @@ export const POST = async (req: Request) => {
 }
 
 export type PostTransactionInput = {
-  categoryId: number | null
+  categoryId?: number | null
   amount: number
-  notes: string | null
+  notes?: string | null
   accountId: number
   createdAt: Date
 }
 export type PostTransactionOutput = {
   id: number
-  category: string | null
-  categoryId: number | null
+  category?: string | null
+  categoryId?: number | null
   amount: number
-  notes: string | null
+  notes?: string | null
   account: string
   accountId: number
   createdAt: Date
+  updatedAt?: Date | null
 }

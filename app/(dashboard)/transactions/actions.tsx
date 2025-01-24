@@ -1,6 +1,6 @@
-import { useOpenAccount } from "@/features/accounts/hooks/useOpenAccount"
-import { useDeleteAccount } from "@/features/accounts/api/useDeleteAccount"
 import { useConfirm } from "@/hooks/useConfirm"
+import { useOpenTransaction } from "@/features/transactions/hooks/useOpenTransaction"
+import { useDeleteTransaction } from "@/features/transactions/api/useDeleteTransaction"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,17 +11,17 @@ import { Edit, MoreHorizontal, Trash } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 type Props = {
-  id: string | number
+  id: string
 }
 
 export const Actions = ({ id }: Props) => {
   const [ConfirmDialog, confirm] = useConfirm(
     "Ви точно впевнені?",
-    "Ви збираєтесь видалити рахунок."
+    "Ви збираєтесь видалити транзакцію."
   )
-  const deleteMutation = useDeleteAccount(id)
+  const deleteMutation = useDeleteTransaction(id)
   const isDisabled = deleteMutation.isPending
-  const { onOpen } = useOpenAccount()
+  const { onOpen } = useOpenTransaction()
   const handleDelete = async () => {
     const ok = await confirm()
     if (ok) {

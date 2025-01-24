@@ -27,6 +27,7 @@ export const useEditCategory = (id?: string) => {
       toast.success("Категорію оновлено")
       queryClient.invalidateQueries({ queryKey: ["categories", { id }] })
       queryClient.invalidateQueries({ queryKey: ["categories"] })
+      queryClient.invalidateQueries({ queryKey: ["transactions"] })
     },
     onError: () => {
       toast.error("Не вдалося оновити категорію")
