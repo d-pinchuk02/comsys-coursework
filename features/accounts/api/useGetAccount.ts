@@ -4,7 +4,7 @@ import type { GetAccountOutput } from "@/app/api/(app)/accounts/[id]/route"
 export const useGetAccount = (id?: string) => {
   const query = useQuery({
     enabled: !!id,
-    queryKey: ["accounts", { id }],
+    queryKey: ["account", { id }],
     queryFn: async () => {
       const response = await fetch(`/api/accounts/${id}`)
       if (!response.ok) {

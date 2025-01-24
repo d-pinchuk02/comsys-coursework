@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import {
   BulkDeleteCategoriesInput,
   BulkDeleteCategoriesOutput,
-} from "@/app/api/(ap\p)/categories/bulk-delete/route"
+} from "@/app/api/(app)/categories/bulk-delete/route"
 
 type RequestType = BulkDeleteCategoriesInput
 type ResponseType = BulkDeleteCategoriesOutput
@@ -24,7 +24,7 @@ export const useBulkDeleteCategories = () => {
     onSuccess: () => {
       toast.success("Категорії видалено")
       queryClient.invalidateQueries({ queryKey: ["categories"] })
-      // TODO: Invalidate summary
+      queryClient.invalidateQueries({ queryKey: ["summary"] })
     },
     onError: () => {
       toast.error("Не вдалося видалити категорії")

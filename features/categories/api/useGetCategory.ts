@@ -4,7 +4,7 @@ import type { GetCategoryOutput } from "@/app/api/(app)/categories/[id]/route"
 export const useGetCategory = (id?: string) => {
   const query = useQuery({
     enabled: !!id,
-    queryKey: ["categories", { id }],
+    queryKey: ["category", { id }],
     queryFn: async () => {
       const response = await fetch(`/api/categories/${id}`)
       if (!response.ok) {

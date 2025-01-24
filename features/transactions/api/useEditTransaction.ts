@@ -27,6 +27,7 @@ export const useEditTransaction = (id?: string) => {
       toast.success("Транзакцію оновлено")
       queryClient.invalidateQueries({ queryKey: ["transaction", { id }] })
       queryClient.invalidateQueries({ queryKey: ["transactions"] })
+      queryClient.invalidateQueries({ queryKey: ["summary"] })
     },
     onError: () => {
       toast.error("Не вдалося оновити транзакцію")

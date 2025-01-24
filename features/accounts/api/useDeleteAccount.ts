@@ -24,9 +24,10 @@ export const useDeleteAccount = (id?: string) => {
     onSuccess: () => {
       toast.dismiss()
       toast.success("Рахунок видалено")
-      queryClient.invalidateQueries({ queryKey: ["accounts", { id }] })
+      queryClient.invalidateQueries({ queryKey: ["account", { id }] })
       queryClient.invalidateQueries({ queryKey: ["accounts"] })
       queryClient.invalidateQueries({ queryKey: ["transactions"] })
+      queryClient.invalidateQueries({ queryKey: ["summary"] })
     },
     onError: () => {
       toast.error("Не вдалося видалити рахунок")

@@ -25,9 +25,10 @@ export const useEditAccount = (id?: string) => {
     },
     onSuccess: () => {
       toast.success("Рахунок оновлено")
-      queryClient.invalidateQueries({ queryKey: ["accounts", { id }] })
+      queryClient.invalidateQueries({ queryKey: ["account", { id }] })
       queryClient.invalidateQueries({ queryKey: ["accounts"] })
       queryClient.invalidateQueries({ queryKey: ["transactions"] })
+      queryClient.invalidateQueries({ queryKey: ["summary"] })
     },
     onError: () => {
       toast.error("Не вдалося оновити рахунок")
