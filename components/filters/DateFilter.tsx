@@ -3,11 +3,11 @@
 import { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import qs from "query-string"
-import { format, subDays } from "date-fns"
+import { subDays } from "date-fns"
 import { DateRange } from "react-day-picker"
 import { ChevronDownIcon } from "lucide-react"
 
-import { formatDateRange } from "@/lib/utils"
+import { formatDateRange, formatDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -38,8 +38,8 @@ export const DateFilter = () => {
 
   const pushToUrl = (dateRange: DateRange | undefined) => {
     const query = {
-      from: format(dateRange?.from || defaultFrom, "yyyy-MM-dd"),
-      to: format(dateRange?.to || defaultTo, "yyyy-MM-dd"),
+      from: formatDate(dateRange?.from || defaultFrom, "yyyy-MM-dd"),
+      to: formatDate(dateRange?.to || defaultTo, "yyyy-MM-dd"),
       accountId,
     }
 

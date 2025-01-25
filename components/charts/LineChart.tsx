@@ -6,8 +6,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts"
-import { format } from "date-fns"
 
+import { formatDate } from "@/lib/utils"
 import { CustomTooltip } from "@/components/charts/CustomTooltip"
 
 type Props = {
@@ -27,7 +27,7 @@ export const LineChart = ({ data }: Props) => {
           axisLine={false}
           tickLine={false}
           dataKey="date"
-          tickFormatter={(value) => format(value, "dd MMM")}
+          tickFormatter={(value) => formatDate(value, "dd MMM")}
           style={{ fontSize: "12px" }}
           tickMargin={16}
         />

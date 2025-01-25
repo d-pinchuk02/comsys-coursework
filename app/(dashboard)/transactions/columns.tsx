@@ -2,12 +2,12 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
-import { format } from "date-fns"
 
 import {
   truncateText,
   formatCurrency,
   convertAmountFromCents,
+  formatDate,
 } from "@/lib/utils"
 import type { GetTransactionsOutput } from "@/app/api/(app)/transactions/route"
 import { Button } from "@/components/ui/button"
@@ -58,7 +58,7 @@ export const columns: ColumnDef<ResponseData>[] = [
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date
 
-      return <span>{format(date, "dd MMMM, yyyy")}</span>
+      return <span>{formatDate(date, "dd MMMM, yyyy")}</span>
     },
   },
   {

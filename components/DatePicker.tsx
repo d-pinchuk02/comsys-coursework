@@ -1,9 +1,8 @@
 import * as React from "react"
-import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { SelectSingleEventHandler } from "react-day-picker"
 
-import { cn } from "@/lib/utils"
+import { cn, formatDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -31,7 +30,7 @@ export const DatePicker = ({ value, onChange, disabled }: Props) => {
           )}
         >
           <CalendarIcon className="size-4 mr-2" />
-          {value ? format(value, "PPP") : <span>Оберіть дату</span>}
+          {value ? formatDate(value, "PPP") : <span>Оберіть дату</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="pointer-events-auto">
