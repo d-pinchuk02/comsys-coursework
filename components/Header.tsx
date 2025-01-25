@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Filters } from "@/components/filters/Filters"
 import { HeaderLogo } from "@/components/HeaderLogo"
 import { Navigation } from "@/components/Navigation"
 import { WelcomeMessage } from "@/components/WelcomeMessage"
@@ -54,6 +55,7 @@ export const Header = () => {
         </div>
 
         <WelcomeMessage />
+        <Filters />
       </div>
     </div>
   )

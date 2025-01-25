@@ -90,7 +90,6 @@ export const DataCard = ({
           )}
         >
           {formatPercentage(percentageChange, { addPrefix: true })} з минулого періоду
-          період
         </p>
       </CardContent>
     </Card>
