@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Курсова робота з предмету "Розроблення проблемно-орієнтованих та сервісно-орієнтованих систем" на тему "Веб-застосунок для обліку доходів та витрат"
 
-## Getting Started
+Роботу виконав студент групи ІМ-42мп, Пінчук Дмитро. Застосунок представляє собою клієнт-серверне програмне забезпечення, виконане на основі web-технологій.
 
-First, run the development server:
+## Короткий огляд можливостей
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Цей застосунок є персональним фінансовим менеджером для обліку доходів та витрат. Реалізована підтримка різних акаунтів, тобто користувачій може бути декілька з незалежними для кожного даними. Кожен факт руху грошей записується в окрему транзакцію, яка має дату, рахунок, категорію, суму та нотатки. Є можливість додати декілька різних рахунків (готівка, картка і т.д.). Крім того для групування транзакцій застосовуються категорії.
+
+### Авторизація
+
+Якщо користувач ще не увійшов до системи, то його зустріне сторінка авторизації, де він може створити акаунт або ж увійти до існуючого.
+
+![Landing page](/docs/demo/landing-page.png)
+
+Тут застосовується інтеграція з сервісом Auth0, після чого користувача перенеправляє в інтерфейс додатку.
+
+![Signup page](/docs/demo/signup-page.png)
+
+### Головна сторінка
+
+На цю сторінку користувач потрапляє після авторизації. Тут відображено основну статистику по доходам, витратам та залишкам. Також, нижче присутні графіки з більш детальними даними по транзакціям та категоріям.
+
+![Home page](/docs/demo/home-page.png)
+
+Є можливість відфільтрувати дані за конкретним рахунком, а також вибрати необхідний період звітності.
+
+![Account filter](/docs/demo/account-filter.png)
+![Date filter](/docs/demo/date-filter.png)
+
+В розділі **Транзакції** можна переглянути дані по доходам та витратам за кожен день звітного періоду. Також, можна переключитись між різними режимами відображення.
+
+![Area chart](/docs/demo/area-chart.png)
+![Line chart](/docs/demo/line-chart.png)
+![Bar chart](/docs/demo/bar-chart.png)
+
+В розділі **Категорії** можна переглянути транзакції, згруповані за категоріями. Також присутня можливість переключитись між різними режимами відображення.
+
+![Pie chart](/docs/demo/pie-chart.png)
+![Radar chart](/docs/demo/radar-chart.png)
+![Radial chart](/docs/demo/radial-chart.png)
+
+### Сторінка Категорії
+
+На цій сторінці можна переглянути існуючі категорії, відфільтрувати за назвою, редагувати, або видалити їх.
+
+![Categories page](/docs/demo/categories-page.png)
+
+Звісно ж, є можливість створити нову категорію, задавши її назву.
+
+![Category create](/docs/demo/category-create.png)
+
+### Сторінка Рахунки
+
+На цій сторінці можна переглянути існуючі рахунки, відфільтрувати за назвою, редагувати, або видалити їх.
+
+![Accounts page](/docs/demo/accounts-page.png)
+
+Звісно ж, є можливість створити новий рахунок, задавши його назву.
+
+![Account create](/docs/demo/account-create.png)
+
+### Сторінка Транзакції
+
+На цій сторінці можна переглянути існуючі транзакції, відфільтрувати за описом, редагувати, або видалити їх.
+
+![Transactions page](/docs/demo/transactions-page.png)
+
+Також присутня можливість створити транзакцію, вказавши дату, рахунок, категорію (опціонально), суму та опис.
+
+![Transaction create](/docs/demo/transaction-create.png)
+
+## Архітектура
+
+Цей додаток є full stack додатком, який реалізовано за допомогою фреймворку Next.js із застосуванням мови програмування Typescript/Javascript.
+Він складається з фронтед та бекенд частини, а також коду для роботи з базою даних.
+
+### Frontend
+
+Для побудови інтерфейсу використовується бібліотека React.js (в рамках технології App Router фреймворку Next.js) з використанням таких компонентів та бібліотек:
+- Auth0 - сервіс для авторизації користувачів
+- Tailwind CSS - фреймворк для написання стилів
+- Shadcn UI - бібліотека компонентів інтерфесу
+- Recharts - бібліотека для відмальовування діаграм
+- React Query - бібліотека для керування запитами до REST API
+- Zustand - бібліотека для керування внутрішнім станом деяких компонентів
+- Zod - бібліотека для валідації вхідних даних
+- Date-fns - бібліотека для роботи з датами та часом
+
+### Backend
+
+Для побудови бекенду (REST API) використовується технологія App Router з фреймворку Next.js із застосуванням таких компонентів:
+- Auth0 - сервіс для авторизації користувачів
+- Drizzle ORM - бібліотека для взаємодії з базою даних Postgres
+- Date-fns - бібліотека для роботи з датами та часом
+- Zod - бібліотека для валідації вхідних даних
+
+### Database
+
+Для зберігання даних користувачів використовується SQL база даних Postgres, а також Drizzle ORM для виконання запитів з бекенду до бази даних.
+
+## Інфраструктура
+
+Для своєї роботи проєкту необхідне середовище виконання Bun (використовується як сучасна альтернатива Node.js), а також сервер Postgres. Зі сторонніх сервісів необхідний Auth0, який відповідає за авторизацію користувачів.
+
+Необхідно створити базу даних Postgres, та створити додаток в серсісі Auth0, а потім підставити всі необхідні параметри в файл .env.local використовуючи цей шаблон в якості прикладу:
+```
+AUTH0_DOMAIN='[ДАНІ_ЗІ_СТОРІНКИ_НАЛАШТУВАНЬ_AUTH0]'
+AUTH0_CLIENT_ID='[ДАНІ_ЗІ_СТОРІНКИ_НАЛАШТУВАНЬ_AUTH0]'
+AUTH0_CLIENT_SECRET='[ДАНІ_ЗІ_СТОРІНКИ_НАЛАШТУВАНЬ_AUTH0]'
+AUTH0_SECRET='[РАНДОМНО_ЗГЕНЕРОВАНИЙ_КЛЮЧ]'
+APP_BASE_URL='http://localhost:3000'
+DATABASE_URL=postgres://[КОРИСТУВАЧ]:[ПАРОЛЬ]@[АДРЕСА_СЕРВЕРА]/[НАЗВА_БАЗИ_ДАНИХ]
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Розгоратання проєкту для production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Перед запуском проєкта необхідно виконати міграції бази даних командою:
+```bash
+bun run db:generate
+bun run db:migrate
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Зібрати готовий для роботи проєкт можна командою:
 
-## Learn More
+```bash
+bun run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Після чого можна запустити сервер командою:
+```bash
+bun run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Клієнт буде доступним за адресою http://localhost:3000/.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Внесення змін
 
-## Deploy on Vercel
+Запустити розробку проєкту можна командою:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+bun run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Клієнт буде доступним за адресою http://localhost:3000/.
