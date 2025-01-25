@@ -38,7 +38,6 @@ export const GET = async (
   })
 }
 
-export type GetCategoryInput = {}
 export type GetCategoryOutput = {
   id: string
   name: string
@@ -77,7 +76,9 @@ export const PATCH = async (
   })
 }
 
-export type EditCategoryInput = {}
+export type EditCategoryInput = {
+  name: string
+}
 export type EditCategoryOutput = {
   id: string
   name: string
@@ -114,7 +115,6 @@ export const DELETE = async (
   })
 }
 
-export type DeleteCategoryInput = {}
 export type DeleteCategoryOutput = {
   id: string
 }

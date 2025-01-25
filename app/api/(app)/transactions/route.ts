@@ -61,7 +61,6 @@ export const GET = async (
   })
 }
 
-export type GetTransactionsInput = {}
 export type GetTransactionsOutput = {
   id: number
   category?: string | null
@@ -75,7 +74,6 @@ export type GetTransactionsOutput = {
 }[]
 
 export const POST = async (req: Request) => {
-  const user = (await getSession())!.user
   const body = await req.json()
   const values = insertTransactionSchema
     .omit({ id: true, updatedAt: true })

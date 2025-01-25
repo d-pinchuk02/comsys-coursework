@@ -1,13 +1,21 @@
-import { format } from "date-fns"
-
 import { formatCurrency } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 
-export const CategoryTooltip = ({ active, payload }: any) => {
+type Props = {
+  active: boolean
+  payload: {
+    payload?: {
+      name: string
+    }
+    value?: number
+  }[]
+}
+
+export const CategoryTooltip = ({ active, payload }: Props) => {
   if (!active) return null
 
-  const name = payload[0].payload.name
-  const value = payload[0].value
+  const name = payload[0]!.payload!.name
+  const value = payload[0]!.value
 
   return (
     <div className="rounded-sm bg-white shadow-sm border overflow-hidden">
@@ -22,7 +30,7 @@ export const CategoryTooltip = ({ active, payload }: any) => {
             <p className="text-sm text-muted-foreground">Витрати</p>
           </div>
           <p className="text-sm text-right font-medium">
-            {formatCurrency(value * -1)}
+            {formatCurrency(value! * -1)}
           </p>
         </div>
       </div>

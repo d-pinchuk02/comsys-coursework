@@ -22,7 +22,6 @@ export const GET = async () => {
   })
 }
 
-export type GetCategoriesInput = {}
 export type GetCategoriesOutput = {
   id: string
   name: string

@@ -38,7 +38,6 @@ export const GET = async (
   })
 }
 
-export type GetAccountInput = {}
 export type GetAccountOutput = {
   id: string
   name: string
@@ -77,7 +76,9 @@ export const PATCH = async (
   })
 }
 
-export type EditAccountInput = {}
+export type EditAccountInput = {
+  name: string
+}
 export type EditAccountOutput = {
   id: string
   name: string
@@ -114,7 +115,6 @@ export const DELETE = async (
   })
 }
 
-export type DeleteAccountInput = {}
 export type DeleteAccountOutput = {
   id: string
 }

@@ -3,12 +3,22 @@ import { format } from "date-fns"
 import { formatCurrency } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 
-export const CustomTooltip = ({ active, payload }: any) => {
+type Props = {
+  active: boolean
+  payload: {
+    payload?: {
+      date: Date
+    }
+    value?: number
+  }[]
+}
+
+export const CustomTooltip = ({ active, payload }: Props) => {
   if (!active) return null
 
-  const date = payload[0].payload.date
-  const income = payload[0].value
-  const expenses = payload[1].value
+  const date = payload[0]!.payload!.date
+  const income = payload[0]!.value
+  const expenses = payload[1]!.value
 
   return (
     <div className="rounded-sm bg-white shadow-sm border overflow-hidden">
@@ -23,7 +33,7 @@ export const CustomTooltip = ({ active, payload }: any) => {
             <p className="text-sm text-muted-foreground">Доходи</p>
           </div>
           <p className="text-sm text-right font-medium">
-            {formatCurrency(income)}
+            {formatCurrency(income!)}
           </p>
         </div>
         <div className="flex items-center justify-between gap-x-4">
@@ -32,7 +42,7 @@ export const CustomTooltip = ({ active, payload }: any) => {
             <p className="text-sm text-muted-foreground">Витрати</p>
           </div>
           <p className="text-sm text-right font-medium">
-            {formatCurrency(expenses * -1)}
+            {formatCurrency(expenses! * -1)}
           </p>
         </div>
       </div>

@@ -22,7 +22,6 @@ export const GET = async () => {
   })
 }
 
-export type GetAccountsInput = {}
 export type GetAccountsOutput = {
   id: string
   name: string

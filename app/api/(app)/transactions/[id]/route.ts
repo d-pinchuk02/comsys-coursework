@@ -42,7 +42,6 @@ export const GET = async (
   })
 }
 
-export type GetTransactionInput = {}
 export type GetTransactionOutput = {
   id: number
   categoryId?: number | null
@@ -97,7 +96,13 @@ export const PATCH = async (
   })
 }
 
-export type EditTransactionInput = {}
+export type EditTransactionInput = {
+  categoryId?: number | null
+  amount?: number
+  notes?: string | null
+  accountId?: number
+  createdAt?: Date
+}
 export type EditTransactionOutput = {
   id: number
   categoryId?: number | null
@@ -149,7 +154,6 @@ export const DELETE = async (
   })
 }
 
-export type DeleteTransactionInput = {}
 export type DeleteTransactionOutput = {
   id: string
 }
