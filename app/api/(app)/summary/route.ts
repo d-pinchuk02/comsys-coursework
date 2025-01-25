@@ -148,7 +148,7 @@ export const GET = async (
 
   const days = fillMissingDays(activeDays, startDate, endDate)
 
-  return NextResponse.json<{ data: SummaryOutput }>({
+  return NextResponse.json<{ data: GetSummaryOutput }>({
     data: {
       remainingAmount: currentPeriod.remaining,
       remainingChange,

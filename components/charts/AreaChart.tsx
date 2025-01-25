@@ -41,6 +41,7 @@ export const AreaChart = ({ data }: Props) => {
           style={{ fontSize: "12px" }}
           tickMargin={16}
         />
+        {/* @ts-expect-error It's a custom component */}
         <Tooltip content={CustomTooltip} />
         <Area
           type="monotone"

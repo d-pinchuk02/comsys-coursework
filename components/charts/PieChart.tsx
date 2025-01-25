@@ -56,6 +56,7 @@ export const PieChart = ({ data }: Props) => {
             )
           }}
         />
+        {/* @ts-expect-error It's a custom component */}
         <Tooltip content={CategoryTooltip} />
         <Pie
           data={data}

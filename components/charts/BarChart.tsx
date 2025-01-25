@@ -31,6 +31,7 @@ export const BarChart = ({ data }: Props) => {
           style={{ fontSize: "12px" }}
           tickMargin={16}
         />
+        {/* @ts-expect-error It's a custom component */}
         <Tooltip content={CustomTooltip} />
         <Bar dataKey="income" fill="#10b981" className="drop-shadow-sm" />
         <Bar dataKey="expenses" fill="#f43f5e" className="drop-shadow-sm" />

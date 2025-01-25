@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import { Loader2, Plus } from "lucide-react"
 
 import { columns } from "./columns"
@@ -11,7 +12,7 @@ import { useNewTransaction } from "@/features/transactions/hooks/useNewTransacti
 import { useGetTransactions } from "@/features/transactions/api/useGetTransactions"
 import { useBulkDeleteTransactions } from "@/features/transactions/api/useBulkDeleteTransactions"
 
-const TransactionsPage = () => {
+const TransactionsPageComponent = () => {
   const newTransaction = useNewTransaction()
   const deleteTransactions = useBulkDeleteTransactions()
   const transactionsQuery = useGetTransactions()
@@ -60,6 +61,14 @@ const TransactionsPage = () => {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+const TransactionsPage = () => {
+  return (
+    <Suspense>
+      <TransactionsPageComponent />
+    </Suspense>
   )
 }
 

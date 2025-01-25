@@ -19,7 +19,7 @@ export const Actions = ({ id }: Props) => {
     "Ви точно впевнені?",
     "Ви збираєтесь видалити рахунок."
   )
-  const deleteMutation = useDeleteAccount(id)
+  const deleteMutation = useDeleteAccount(id.toString())
   const isDisabled = deleteMutation.isPending
   const { onOpen } = useOpenAccount()
   const handleDelete = async () => {
@@ -41,7 +41,7 @@ export const Actions = ({ id }: Props) => {
           <DropdownMenuItem
             disabled={isDisabled}
             onClick={() => {
-              onOpen(id)
+              onOpen(id.toString())
             }}
           >
             <Edit className="mr-2 size-4" />

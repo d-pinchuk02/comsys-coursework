@@ -31,6 +31,7 @@ export const LineChart = ({ data }: Props) => {
           style={{ fontSize: "12px" }}
           tickMargin={16}
         />
+        {/* @ts-expect-error It's a custom component */}
         <Tooltip content={CustomTooltip} />
         <Line
           dataKey="income"
