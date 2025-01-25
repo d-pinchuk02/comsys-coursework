@@ -27,7 +27,7 @@ export default function RootLayout({
         <body className={`${inter.variable} antialiased`}>
           <QueryProvider>
             <SheetProvider />
-            <Toaster />
+            <Toaster richColors />
             {children}
           </QueryProvider>
         </body>
