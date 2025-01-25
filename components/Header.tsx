@@ -1,9 +1,8 @@
 "use client"
 
-import Link from "next/link"
-import { useUser } from "@auth0/nextjs-auth0/client"
-
+import { useUser } from "@auth0/nextjs-auth0"
 import { LogOut } from "lucide-react"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -26,36 +25,42 @@ export const Header = () => {
       <div className="max-w-screen-2xl mx-auto">
         <div className="w-full flex items-center justify-between mb-14">
           <div className="flex items-center lg:gap-x-16">
-            <HeaderLogo />
-            <Navigation />
+            {user ? (
+              <HeaderLogo />
+            ) : (
+              <p className="font-semibold text-white text-2xl">Money Manager</p>
+            )}
+            {user && <Navigation />}
           </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar>
-                {user && !isLoading && <AvatarImage src={user.picture!} />}
-                <AvatarFallback>
-                  {user && !isLoading
-                    ? user.email!.charAt(0).toUpperCase()
-                    : "..."}
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{user && user.nickname}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild key="logout">
-                <Link key="logout" href="/api/auth/logout">
-                  <LogOut />
-                  <span>Вийти з системи</span>
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  {user && !isLoading && <AvatarImage src={user.picture!} />}
+                  <AvatarFallback>
+                    {user && !isLoading
+                      ? user.email!.charAt(0).toUpperCase()
+                      : "..."}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{user && user.nickname}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild key="logout">
+                  <a href="/auth/logout">
+                    <LogOut />
+                    <span>Вийти з системи</span>
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
 
         <WelcomeMessage />
-        <Filters />
+        {user && <Filters />}
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { parse, subDays } from "date-fns"
 import { and, eq, gte, lte, desc } from "drizzle-orm"
-import { getSession } from "@auth0/nextjs-auth0"
+import { auth0 } from "@/lib/auth0"
 
 import { db } from "@/db/drizzle"
 import {
@@ -11,20 +11,12 @@ import {
   accounts,
 } from "@/db/schema"
 
-export const GET = async (
-  req: NextRequest,
-  {
-    params,
-  }: {
-    params: Promise<{
-      from: string | undefined
-      to: string | undefined
-      accountId: number | undefined
-    }>
-  }
-) => {
-  const { from, to, accountId } = (await params) || {}
-  const user = (await getSession())!.user
+export const GET = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url)
+  const from = searchParams.get("from")
+  const to = searchParams.get("to")
+  const accountId = searchParams.get("accountId")
+  const user = (await auth0.getSession())!.user
   const defaultTo = new Date()
   const defaultFrom = subDays(defaultTo, 30)
 
@@ -48,7 +40,7 @@ export const GET = async (
     .leftJoin(categories, eq(transactions.categoryId, categories.id))
     .where(
       and(
-        accountId ? eq(transactions.accountId, accountId) : undefined,
+        accountId ? eq(transactions.accountId, Number(accountId)) : undefined,
         eq(accounts.userId, user.sub),
         gte(transactions.createdAt, startDate),
         lte(transactions.createdAt, endDate)

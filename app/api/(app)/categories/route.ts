@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server"
 import { eq } from "drizzle-orm"
-import { getSession } from "@auth0/nextjs-auth0"
+import { auth0 } from "@/lib/auth0"
 
 import { db } from "@/db/drizzle"
 import { categories, insertCategorySchema } from "@/db/schema"
 
 export const GET = async () => {
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const data = await db
     .select({
       id: categories.id,
@@ -30,7 +30,7 @@ export type GetCategoriesOutput = {
 }[]
 
 export const POST = async (req: Request) => {
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const body = await req.json()
   const values = insertCategorySchema.pick({ name: true }).parse(body)
 

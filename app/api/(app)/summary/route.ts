@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { parse, subDays, differenceInDays } from "date-fns"
 import { sql, sum, eq, and, gte, lte, lt, desc } from "drizzle-orm"
-import { getSession } from "@auth0/nextjs-auth0"
+import { auth0 } from "@/lib/auth0"
 
 import { calculatePercentageChange, fillMissingDays } from "@/lib/utils"
 import { db } from "@/db/drizzle"
@@ -9,7 +9,7 @@ import { transactions, accounts, categories } from "@/db/schema"
 
 async function fetchPeriodData(
   userId: string,
-  accountId: number | undefined,
+  accountId: string | number | undefined,
   startDate: Date,
   endDate: Date
 ) {
@@ -29,7 +29,7 @@ async function fetchPeriodData(
     .innerJoin(accounts, eq(transactions.accountId, accounts.id))
     .where(
       and(
-        accountId ? eq(transactions.accountId, accountId) : undefined,
+        accountId ? eq(transactions.accountId, Number(accountId)) : undefined,
         eq(accounts.userId, userId),
         gte(transactions.createdAt, startDate),
         lte(transactions.createdAt, endDate)
@@ -37,20 +37,12 @@ async function fetchPeriodData(
     )
 }
 
-export const GET = async (
-  req: NextRequest,
-  {
-    params,
-  }: {
-    params: Promise<{
-      from: string | undefined
-      to: string | undefined
-      accountId: number | undefined
-    }>
-  }
-) => {
-  const { from, to, accountId } = (await params) || {}
-  const user = (await getSession())!.user
+export const GET = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url)
+  const from = searchParams.get("from") ?? ""
+  const to = searchParams.get("to") ?? ""
+  const accountId = searchParams.get("accountId") ?? ""
+  const user = (await auth0.getSession())!.user
   const defaultTo = new Date()
   const defaultFrom = subDays(defaultTo, 30)
 
@@ -97,7 +89,7 @@ export const GET = async (
     .innerJoin(categories, eq(transactions.categoryId, categories.id))
     .where(
       and(
-        accountId ? eq(transactions.accountId, accountId) : undefined,
+        accountId ? eq(transactions.accountId, Number(accountId)) : undefined,
         eq(accounts.userId, user.sub),
         lt(transactions.amount, 0),
         gte(transactions.createdAt, startDate),
@@ -137,7 +129,7 @@ export const GET = async (
     .innerJoin(accounts, eq(transactions.accountId, accounts.id))
     .where(
       and(
-        accountId ? eq(transactions.accountId, accountId) : undefined,
+        accountId ? eq(transactions.accountId, Number(accountId)) : undefined,
         eq(accounts.userId, user.sub),
         gte(transactions.createdAt, startDate),
         lte(transactions.createdAt, endDate)

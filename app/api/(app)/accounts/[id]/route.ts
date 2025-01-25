@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { eq, and } from "drizzle-orm"
-import { getSession } from "@auth0/nextjs-auth0"
+import { auth0 } from "@/lib/auth0"
 
 import { db } from "@/db/drizzle"
 import { accounts, insertAccountSchema } from "@/db/schema"
@@ -10,7 +10,7 @@ export const GET = async (
   { params }: { params: Promise<{ id: number }> }
 ) => {
   const id = (await params).id
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const [data] = await db
     .select({
       id: accounts.id,
@@ -50,7 +50,7 @@ export const PATCH = async (
   { params }: { params: Promise<{ id: number }> }
 ) => {
   const id = (await params).id
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const body = await req.json()
   const values = insertAccountSchema.pick({ name: true }).parse(body)
 
@@ -91,7 +91,7 @@ export const DELETE = async (
   { params }: { params: Promise<{ id: number }> }
 ) => {
   const id = (await params).id
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const [data] = await db
     .delete(accounts)
     .where(and(eq(accounts.userId, user.sub), eq(accounts.id, id)))

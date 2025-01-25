@@ -1,6 +1,8 @@
-import { UserProvider } from "@auth0/nextjs-auth0/client"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { Auth0Provider } from "@auth0/nextjs-auth0"
+
+import { auth0 } from "@/lib/auth0"
 import { Toaster } from "@/components/ui/sonner"
 import { QueryProvider } from "./providers/QueryProvider"
 import { SheetProvider } from "./providers/SheetProvider"
@@ -16,14 +18,16 @@ export const metadata: Metadata = {
   description: "Money Manager",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = await auth0.getSession()
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <UserProvider>
+      <Auth0Provider user={session?.user}>
         <body className={`${inter.variable} antialiased`}>
           <QueryProvider>
             <SheetProvider />
@@ -31,7 +35,7 @@ export default function RootLayout({
             {children}
           </QueryProvider>
         </body>
-      </UserProvider>
+      </Auth0Provider>
     </html>
   )
 }

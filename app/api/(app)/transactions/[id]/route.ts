@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { eq, and, sql, inArray } from "drizzle-orm"
-import { getSession } from "@auth0/nextjs-auth0"
+import { auth0 } from "@/lib/auth0"
 
 import { db } from "@/db/drizzle"
 import { transactions, insertTransactionSchema, accounts } from "@/db/schema"
@@ -10,7 +10,7 @@ export const GET = async (
   { params }: { params: Promise<{ id: number }> }
 ) => {
   const id = (await params).id
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const [data] = await db
     .select({
       id: transactions.id,
@@ -57,7 +57,7 @@ export const PATCH = async (
   { params }: { params: Promise<{ id: number }> }
 ) => {
   const id = (await params).id
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const body = await req.json()
   const values = insertTransactionSchema
     .omit({ id: true, updatedAt: true })
@@ -118,7 +118,7 @@ export const DELETE = async (
   { params }: { params: Promise<{ id: number }> }
 ) => {
   const id = (await params).id
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
 
   const transactionsToDelete = db.$with("transactions_to_delete").as(
     db

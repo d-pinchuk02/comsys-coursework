@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server"
 import { and, eq, inArray } from "drizzle-orm"
-import { getSession } from "@auth0/nextjs-auth0"
+import { auth0 } from "@/lib/auth0"
 import { z } from "zod"
 
 import { db } from "@/db/drizzle"
 import { categories } from "@/db/schema"
 
 export const POST = async (req: Request) => {
-  const user = (await getSession())!.user
+  const user = (await auth0.getSession())!.user
   const body = await req.json()
   const values = z
     .object({
